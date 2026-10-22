@@ -3,7 +3,6 @@ print("Please ansewer the follwoing questions to generate your custom worldlist!
 
 answers = []
 
-
 def ask(prompt, check, hint):
     while True:
         value = input(prompt).strip()
@@ -13,26 +12,33 @@ def ask(prompt, check, hint):
         print(hint)
 
 def isYear(p1):
-    return p1.stript() and len(p1) == 4 and p1[0] != "0" and p1.isdigit()
+    return p1.strip() and len(p1) == 4 and p1[0] != "0" and p1.isdigit()
 
 def isMonth(p1):
-    return p1.stript() and int(p1) >= 1 and int(p1) <= 12 and p1.isdigit()
+    return p1.strip() and p1.isdigit() and int(p1) >= 1 and int(p1) <= 12
 
 def CNSnumberCheck(p1):
-    return p1.stript() and len(p1) == 13 and p1.isdigit() and p1[0] != "0"
+    return p1.strip() and p1.isdigit() and len(p1) == 13 and p1[0] != "0"
 
 def noCondition(p1):
     return True
 
+# checking for dublications in the answer array
+def check_dublication(array):
+    arrayL = len(array)
+    for i in range(arrayL -1):
+        for j in range(i+1, arrayL):
+            if array[i] == array[j]:
+                #array.remove(array[j])
+                #instead of removing item from we can remove dublication from final generated wordlist and use this True bolean like a trigger
+                print("Dublication found in your responds, one will be removed")
+                return True
+    return False
+        
+            
+        
 
-FirstN = ask("A first name: ", str.isalpha, "Alphabetic input only!")
-LastN = ask("A last name: ", str.isalpha, "Alphabetic input only!")
-BirthY = ask("A birth year: ", isYear , "4 digit start with 1 at least!")
-BirthM = ask("A bith month: ", isMonth, "Numbers 1-12 only!")
-CNS = ask("A socialsecurity number: ", CNSnumberCheck, "Birthyear + birth month + birth day + 5 random digit = 13 digit!")
-AIM =  ask("An AIM(Optional): ", noCondition, "Optional!")
-
-""" questions = [
+questions = [
     'A First name? ',
     'A Last name? ',
     'A Birth year: ',
@@ -40,31 +46,13 @@ AIM =  ask("An AIM(Optional): ", noCondition, "Optional!")
     'A Social security number: ',
     'An AIM: '
 ]
+FirstN = ask(questions[0], str.isalpha, "Alphabetic input only!")
+LastN = ask(questions[1], str.isalpha, "Alphabetic input only!")
+BirthY = ask(questions[2], isYear , "4 digit start with 1 at least!")
+BirthM = ask(questions[3], isMonth, "Numbers 1-12 only!")
+CNS = ask(questions[4], CNSnumberCheck, "Birthyear + birth month + birth day + 5 random digit = 13 digit!")
+AIM =  ask(questions[5], noCondition, "Optional!")
 
-answers = []
 
-print("     --- Alphabetic answers only! ---     ")
-for question in questions[0:2]:
-    while True:
-        valueS = input(question).strip()
-        if valueS.isalpha():
-            answers.append(valueS)
-            break
-        else:
-            print("Alphabetic values only!")
-
-print("     --- Now Numerical answers only! ---         ")
-
-# a birth year can not start with 0
-# a birth year can not be more than 4 digit
-# a birth month can not be bigger than 12 and less that 1
-# a socialsecurity number must be only 13 digit and can not start with 0
-for question in questions[2:5]:
-    while True:   
-        valueN = input(question).strip()
-        if valueN.isdigit():
-            answers.append(valueN)
-            break
-        print("Numeric answer is required!") """
-
+# next step: generate your list what supposed to be concatinated
 
